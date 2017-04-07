@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+# import plotlyOutput function
 library(plotly)
 
 shinyUI(fluidPage(
@@ -16,31 +17,35 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
-      fluidRow(column(4, helpText("Bounds")),
+      fluidRow(helpText("MCMI: a R package for calculating"),
+             helpText("and visualizing multiple integral"),
+             helpText("using Monte Carlo method."),
+             a("learn more >>",href="https://projects.ddlee.cn/list/mcmi.html")),
+      fluidRow(column(3, helpText("Bounds")),
             column(4, helpText("min")),
             column(4, helpText("max"))),
-      fluidRow(column(4, helpText("x")),
+      fluidRow(column(3, helpText("x")),
             column(4, numericInput("x1", NULL, -2)),
             column(4, numericInput("x2", NULL, 2))),
-      fluidRow(column(4, helpText("y")),
+      fluidRow(column(3, helpText("y")),
             column(4, numericInput("y1", NULL, -2)),
             column(4, numericInput("y2", NULL, 2))),
-      fluidRow(column(4, helpText("z")),
+      fluidRow(column(3, helpText("z")),
             column(4, numericInput("z1", NULL, -1)),
             column(4, numericInput("z2", NULL, 1))),
 
-      fluidRow(column(4, helpText("Integrand")),
+      fluidRow(column(3, helpText("Integrand")),
             column(4, textInput("integrand", NULL, "1"))),
 
-      fluidRow(column(4, helpText("constrains")),
-            column(10, textInput("constrains1", NULL, "x^2/4+y^2/4+z^2/1<1"))),
-      fluidRow(column(4, helpText("")),
-            column(10, textInput("constrains2", NULL, "x<y^2"))),
+      fluidRow(column(3, helpText("constrains")),
+            column(7, textInput("constrains1", NULL, "x^2/4+y^2/4+z^2/1<1"))),
+      fluidRow(column(3, helpText("")),
+            column(7, textInput("constrains2", NULL, "x<y^2"))),
 
-      fluidRow(column(2, helpText("")),
-               column(4, actionButton("mcmi", "Calculate!")),
+      fluidRow(column(1, helpText("")),
+               column(3, actionButton("mcmi", "Calculate!")),
                column(1, helpText("")),
-               column(4, actionButton("visualize", "Visualize!")))
+               column(3, actionButton("visualize", "Visualize!")))
 
     ),
 
@@ -48,8 +53,11 @@ shinyUI(fluidPage(
     mainPanel(
       plotlyOutput("scatterplot"),
       fluidRow(column(4, helpText("Result:")),
-               column(4, textOutput("result")))
+               column(4, textOutput("result"))),
       # verbatimTextOutput("event")
+
+
+      fluidRow(helpText("Demo only support 3D, input lower and upper bound, integrand and optional constrains."))
     )
   )
 ))
